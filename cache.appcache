@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# rev 20260923-123-complete
+# rev 20260923-124-complete
 
 index.html
 jb.html
@@ -23,5 +23,4 @@ NETWORK:
 *
 
 FALLBACK:
-index.html index.html
-jb.html jb.html
+/ index.html
