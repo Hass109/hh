@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en" manifest="cache.appcache">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>HASS&Gaming</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        color: #c8ced8;
+        font: 15px/1.45 "Segoe UI", system-ui, sans-serif;
+        background-color: #0b0d10;
+        background-image: linear-gradient(rgba(11, 13, 16, 0.05), rgba(11, 13, 16, 0.08)), url('preview.jpg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        background-attachment: fixed;
+      }
+
+      /* تم إلغاء الخلفية والحدود بالكامل ليصبح شفافاً وعائماً */
+      #brand {
+        text-align: center;
+        padding: 20px 10px 10px;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        transform: translateZ(0);
+      }
+
+      /* الشعار بدون حدود خارجية */
+      #brand img {
+        display: block;
+        margin: 0 auto 10px auto;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: none;
+      }
+
+      /* نص الهوست بتأثير النيون الأحمر العائم */
+      #brand b {
+        display: block;
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        color: #fff;
+        text-shadow: 
+          0 0 6px #e80725,
+          0 0 15px #e80725;
+      }
+
+      /* نص الهاتف بتأثير النيون السماوي العائم */
+      #phone {
+        margin-top: 15px;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: .15em;
+        direction: ltr;
+        color: #e0f9ff;
+        text-shadow: 0 0 8px #00e5ff;
+      }
+
+/* حلقة الانتظار المسرعة عتادياً بنسبة 100% عبر GPU */
+#spin {
+  position: fixed;
+  top: calc(50% + 20px);
+  left: 50%;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  border: 4px solid #1e2732;
+  border-top-color: #e80725;
+  border-radius: 50%;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
+
+  -webkit-animation: spin 0.9s linear infinite;
+  animation: spin 0.9s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: translateZ(0) rotate(0deg);
+  }
+  100% {
+    -webkit-transform: translateZ(0) rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: translateZ(0) rotate(0deg);
+  }
+  100% {
+    transform: translateZ(0) rotate(360deg);
+  }
+}
+      #msg {
+        position: fixed;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        text-align: center;
+        font-size: 16px;
+        letter-spacing: 0.5px;
+        display: none;
+      }
+
+      #wrap {
+        padding: 0;
+      }
+      #state,
+      #out {
+        display: none;
+      }
+
+      body.done #spin,
+      body.fail #spin {
+        display: none;
+      }
+      body.fail #msg,
+      body.done #msg {
+        display: block;
+      }
+
+      body.log #spin,
+      body.log #msg,
+      body.log #footer {
+        display: none;
+      }
+      body.log #wrap {
+        padding: 14px 18px;
+      }
+      body.log #state {
+        display: block;
+        font-size: 22px;
+        font-weight: 700;
+        margin: 0 0 8px;
+      }
+      body.log #out {
+        display: block;
+        white-space: pre-wrap;
+        font: 12px/1.45 Consolas, monospace;
+        background: rgba(17, 21, 27, 0.85);
+        border: 1px solid #1e2732;
+        border-radius: 5px;
+        padding: 10px 12px;
+        height: calc(100vh - 155px);
+        overflow-y: auto;
+      }
+
+      #footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        padding: 12px 10px;
+        background: transparent;
+        direction: rtl;
+        pointer-events: none;
+      }
+
+      #footer .loc {
+        font-size: 14px;
+        font-weight: 600;
+        color: #e6ebf2;
+        letter-spacing: 0.05em;
+        text-shadow: 0 0 6px rgba(0, 229, 255, 0.25);
+        margin-bottom: 4px;
+      }
+
+      #footer .services {
+        font-size: 13px;
+        font-weight: 500;
+        color: #9fb3d0;
+        letter-spacing: 0.08em;
+        direction: ltr;
+        text-shadow: 0 0 5px rgba(232, 7, 37, 0.25);
+      }
+
+      .ok { color: #7fd0a0; }
+      .bad { color: #d08a7f; }
+      .warn { color: #d8c07f; }
+      .safe { color: #7fd0a0; }
+      .danger { color: #d08a7f; }
+      code { color: #9fb3d0; }
+    </style>
+  </head>
+  <body>
+    <div id="brand">
+      <img src="logo_raw.png" alt="Logo" />
+      <b>Hass&Gaming</b>
+      <div id="phone">0123783040</div>
+    </div>
+    <div id="spin"></div>
+    <div id="msg">Restart your console</div>
+    <div id="wrap">
+      <div id="state"></div>
+      <div id="out"></div>
+    </div>
+
+    <div id="footer">
+      <div class="loc">ديف تكنولوجي - السوق الكبير - تقاطع زين سابقاً</div>
+      <div class="services">تعديل أجهزة PS2 / PS3 / PS4 / PS5</div>
+    </div>
+    
+    <script type="module" src="jb.js"></script>
+ </body>
+</html>
