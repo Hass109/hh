@@ -535,7 +535,7 @@ PS4["13.50"] = {
   k_prison0: 0x1a5c0c0,
   k_rootvnode: 0x2136e90,
   kpatch: "1350.bin", // BUILT (anchored in kernel_1350.elf); kpatch.js 10/10, both neg controls refuse; UNTESTED on hw
-  payload: "payload2.bin", // PS4-HEN, works through 13.52
+  payload: "goldhen.bin", // PS4-HEN, works through 13.52
 };
 
 PS4["13.52"] = Object.assign({}, PS4["13.50"], {
